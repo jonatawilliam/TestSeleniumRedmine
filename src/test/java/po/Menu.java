@@ -69,7 +69,7 @@ public class Menu extends BasePage {
 
     public HomePage esperarHomeCarregar() {
         WebDriverWait wait = new WebDriverWait(driver, 10);
-        wait.until( (ExpectedCondition<Boolean>) (WebDriver d) -> d.getCurrentUrl().equals("http://demo.redmine.org/"));
+        wait.until( (ExpectedCondition<Boolean>) (WebDriver d) -> d.getCurrentUrl().equals("https://www.redmine.org/"));
         return new HomePage(driver);
     }
 

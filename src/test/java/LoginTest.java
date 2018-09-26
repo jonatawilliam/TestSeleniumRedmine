@@ -41,7 +41,7 @@ public class LoginTest {
     public void testLogin() {
         LoginPage loginPage = new LoginPage(driver);
 
-        loginPage.setUsuario("utfpr");
+        loginPage.setUsuario("utfpr_test");
         loginPage.setSenha("Utfpr@2018");
         loginPage.submit();
 
@@ -51,7 +51,7 @@ public class LoginTest {
 
         takeScreenShot();
 
-        assertEquals(homePage.getUrl(), "http://demo.redmine.org/my/page");
+        assertEquals(homePage.getUrl(), "https://www.redmine.org/my/page");
     }
 
     private void takeScreenShot() {

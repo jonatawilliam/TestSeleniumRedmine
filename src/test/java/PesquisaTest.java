@@ -1,32 +1,43 @@
-import po.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.commons.io.FileUtils;
-import org.junit.*;
-import org.openqa.selenium.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+import po.*;
 
 import java.io.File;
 import java.io.IOException;
 
 import static org.junit.Assert.assertEquals;
 
-public class LogoutTest {
-
+public class PesquisaTest {
     private static int imageId = 0;
 
     WebDriver driver;
 
     @BeforeClass
-    public static void beforeClass() { WebDriverManager.chromedriver().setup(); }
+    public static void beforeClass() {
+        WebDriverManager.chromedriver().setup();
+    }
 
     @Before
-    public void before() { driver = Setup.setup(); }
+    public void before() {
+        driver = Setup.setup();
+    }
 
     @After
-    public void after() { driver.close(); }
+    public void after() {
+        driver.close();
+    }
 
     @Test
-    public void testLogout() {
+    public void testLogin() {
         LoginPage loginPage = new LoginPage(driver);
+        SearchPage searchPage = new SearchPage(driver);
         Menu menu = new Menu(driver);
 
         loginPage.setUsuario("utfpr_test");
@@ -41,13 +52,20 @@ public class LogoutTest {
 
         assertEquals(homePage.getUrl(), "https://www.redmine.org/my/page");
 
-        menu.buttonItemLogout();
+        menu.buttonItemPaginaInicial();
 
-        HomePage homePage2 = menu.esperarHomeCarregar();
-
+        searchPage.setPesquisa("test");
         takeScreenShot();
 
-        assertEquals(homePage2.getUrl(), "https://www.redmine.org/");
+        searchPage.selecionarItemPesquisa();
+        takeScreenShot();
+
+//        assertEquals(, "http://demo.redmine.org/my/page");
+
+
+
+
+
     }
 
     private void takeScreenShot() {
@@ -55,7 +73,6 @@ public class LogoutTest {
         try {
             imageId++;
             FileUtils.copyFile(sourceFile, new File("./res/" + imageId + ".png"));
-        } catch (IOException e) {
-        }
+        } catch(IOException e) {}
     }
 }

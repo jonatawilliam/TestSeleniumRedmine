@@ -7,33 +7,26 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class LoginPage extends BasePage {
-    @FindBy(xpath = "//*[@id=\"username\"]")
-    WebElement usuario;
+public class SearchPage extends BasePage {
 
-    @FindBy(xpath = "//*[@id=\"password\"]")
-    WebElement senha;
+    @FindBy(xpath = "//*[@id=\"search-results\"]/dt[1]/a")
+    WebElement resultado;
 
-    @FindBy(xpath = "//*[@id=\"login-form\"]/form/table/tbody/tr[4]/td[2]/input")
-    WebElement submit;
+    @FindBy(xpath = "//*[@id=\"q\"]")
+    WebElement search;
 
-    public LoginPage(WebDriver driver) {
+    public SearchPage(WebDriver driver) {
         super(driver);
         driver.get("https://www.redmine.org/login");
     }
 
-    public LoginPage setUsuario(String usuario) {
-        this.usuario.sendKeys(usuario);
+    public SearchPage selecionarItemPesquisa() {
+        this.resultado.click();
         return this;
     }
 
-    public LoginPage setSenha(String senha) {
-        this.senha.sendKeys(senha);
-        return this;
-    }
-
-    public LoginPage submit() {
-        this.submit.submit();
+    public SearchPage setPesquisa(String texto) {
+        this.search.sendKeys(texto);
         return this;
     }
 

@@ -1,16 +1,20 @@
-import po.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.commons.io.FileUtils;
-import org.junit.*;
-import org.openqa.selenium.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+import po.*;
 
 import java.io.File;
 import java.io.IOException;
 
 import static org.junit.Assert.assertEquals;
 
-public class LogoutTest {
-
+public class CriarProjetoTest {
     private static int imageId = 0;
 
     WebDriver driver;
@@ -28,26 +32,26 @@ public class LogoutTest {
     public void testLogout() {
         LoginPage loginPage = new LoginPage(driver);
         Menu menu = new Menu(driver);
+        ProjetoPage projetoPage = new ProjetoPage(driver);
 
         loginPage.setUsuario("utfpr_test");
         loginPage.setSenha("Utfpr@2018");
         loginPage.submit();
-
         takeScreenShot();
 
         HomePage homePage = loginPage.esperarHomeCarregar();
-
         takeScreenShot();
 
-        assertEquals(homePage.getUrl(), "https://www.redmine.org/my/page");
+        assertEquals(homePage.getUrl(), "https://www.redmine.org/my/account");
 
-        menu.buttonItemLogout();
-
-        HomePage homePage2 = menu.esperarHomeCarregar();
-
+        menu.buttonItemMinhaConta();
+        projetoPage.setNomeProjeto("Projeto Teste PO");
+        projetoPage.buttonSalvar();
         takeScreenShot();
 
-        assertEquals(homePage2.getUrl(), "https://www.redmine.org/");
+        assertEquals(projetoPage.getConfirmacaoSalvar(), "Conta atualizada com sucesso.");
+
+
     }
 
     private void takeScreenShot() {

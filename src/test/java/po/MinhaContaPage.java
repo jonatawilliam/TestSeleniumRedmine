@@ -7,33 +7,33 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class LoginPage extends BasePage {
-    @FindBy(xpath = "//*[@id=\"username\"]")
-    WebElement usuario;
+public class MinhaContaPage extends BasePage {
+    @FindBy(xpath = "//*[@id=\"user_lastname\"]")
+    WebElement sobreNome;
 
-    @FindBy(xpath = "//*[@id=\"password\"]")
-    WebElement senha;
+    @FindBy(xpath = "//*[@id=\"my_account_form\"]/div[1]/input")
+    WebElement salvar;
 
-    @FindBy(xpath = "//*[@id=\"login-form\"]/form/table/tbody/tr[4]/td[2]/input")
-    WebElement submit;
+    @FindBy(xpath = "//*[@id=\"flash_notice\"]")
+    WebElement confirmacaoSalvar;
 
-    public LoginPage(WebDriver driver) {
+    public MinhaContaPage(WebDriver driver) {
         super(driver);
-        driver.get("https://www.redmine.org/login");
+        driver.get("https://www.redmine.org/my/account");
     }
 
-    public LoginPage setUsuario(String usuario) {
-        this.usuario.sendKeys(usuario);
+    public MinhaContaPage setSobreNome(String nome) {
+        this.sobreNome.sendKeys(nome);
         return this;
     }
 
-    public LoginPage setSenha(String senha) {
-        this.senha.sendKeys(senha);
+    public MinhaContaPage buttonSalvar() {
+        this.salvar.click();
         return this;
     }
 
-    public LoginPage submit() {
-        this.submit.submit();
+    public MinhaContaPage getNotificacaoSalvar() {
+        this.confirmacaoSalvar.getTagName();
         return this;
     }
 
